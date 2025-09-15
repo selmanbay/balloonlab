@@ -1,0 +1,14 @@
+﻿{
+  "proc_width": 480,
+  "gauss_k": 5,
+  "morph_k_base": 11,
+  "median_k": 5,
+  "min_area": 1400,
+  "circularity_min": 0.75,
+  "solidity_min": 0.88,
+  "mode": "color_only",
+  "color": "Blue",
+  "sensitivity": 35,
+  "shape": "any",
+  "show_mask": false
+}
