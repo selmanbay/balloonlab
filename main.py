@@ -1,5 +1,7 @@
 ﻿import cv2, json, time, argparse
 import numpy as np
+from core.ui import build_inner_shape_controls, read_inner_shape_controls
+from detector.shapes import SHAPE_PARAMS
 
 from core.helpers import ema_update, window_exists
 from core.ui import ensure_window, build_controls, read_controls, save_frame
@@ -48,6 +50,9 @@ def main():
     win = "Balloon Detector (Modular)"
     ensure_window(win, 960, 540)
     ctrl = build_controls()
+    inner_ctrl = build_inner_shape_controls()
+    # shape paramlarını canlı güncelle
+    read_inner_shape_controls(inner_ctrl, SHAPE_PARAMS)
 
     writer = TelemetryWriter(args.record)
 

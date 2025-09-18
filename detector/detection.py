@@ -1,7 +1,7 @@
 ﻿import cv2, numpy as np
 from core.helpers import odd, nms_merge
 from detector.masks import make_hsv_mask
-from detector.shapes import find_black_shape_in_balloon
+from detector.shapes import detect_shape_in_balloon, SHAPE_PARAMS
 
 def detect_balloons(frame_bgr, preset, sens, min_area=1400,
                     k_base=11, require_shape=None):
@@ -47,10 +47,13 @@ def detect_balloons(frame_bgr, preset, sens, min_area=1400,
         if sol < 0.88: continue
 
         if require_shape is not None:
-            want = require_shape if require_shape in ("circle","triangle","square") else "any"
-            ok, shp = find_black_shape_in_balloon(proc, c, want_shape=want)
+            want = require_shape if require_shape in ("circle", "triangle", "square") else "any"
+            ok, shp, conf, dbg = detect_shape_in_balloon(proc, c, want_shape=want)  # 4 değer
             if not ok:
                 continue
+            # (istersen burada conf/dbg'yi kullanabilirsin; şimdilik gerek yok)
+        else:
+            shp = None
 
         (cx_, cy_), r = cv2.minEnclosingCircle(c)
         r = int(r)
